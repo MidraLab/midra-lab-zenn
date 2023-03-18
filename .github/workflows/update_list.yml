@@ -1,0 +1,19 @@
+name: update aritcle list
+on:
+  push:
+    branches:
+      - main
+  dispatch: { }
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Go 1.16
+        uses: actions/setup-go@v4.0.0
+        with:
+          go-version: 1.19
+      - name: run update list
+        run: |
+          go run ./scripts/update_article_list.go
