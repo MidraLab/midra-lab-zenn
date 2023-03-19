@@ -16,4 +16,5 @@ jobs:
           go-version: 1.19
       - name: run update list
         run: |
+          ls -la
           go run ./scripts/update_article_list.go
