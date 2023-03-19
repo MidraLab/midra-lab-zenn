@@ -17,4 +17,4 @@ jobs:
       - name: run update list
         run: |
           ls -la
-          go run ./scripts/update_article_list.go
+          go run ./.github/scripts/update_article_list.go
