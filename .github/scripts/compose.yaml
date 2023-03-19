@@ -1,0 +1,13 @@
+version: "3"
+services:
+  midra-lab-zenn:
+    container_name: midra-lab-zenn
+    build: .
+    tty: true
+    environment:
+      - MIDRA_LAB_NOTION_API=${MIDRA_LAB_NOTION_API}
+      - NOTION_DATABASE_URL=${NOTION_DATABASE_URL}
+    env_file:
+      - .env
+    volumes:
+      - ./app:/go/src/app
