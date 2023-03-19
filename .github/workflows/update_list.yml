@@ -17,6 +17,7 @@ jobs:
           echo "NOTION_DATABASE_URL=${NOTION_DATABASE_URL}" >> .env
       - name: Build
         run: |
+          cd ./.github/scripts
           docker-compose up -d --build
       - name: Run
         run: |
