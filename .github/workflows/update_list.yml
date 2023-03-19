@@ -3,16 +3,21 @@ on:
   push:
   workflow_dispatch:
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
+    env:
+      MIDRA_LAB_NOTION_API: ${{ secrets.MIDRA_LAB_NOTION_API }}
+      NOTION_DATABASE_URL: ${{ secrets.NOTION_DATABASE_URL }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Go 1.16
-        uses: actions/setup-go@v4.0.0
-        with:
-          go-version: 1.19
-      - name: run update list
+      - uses: actions/checkout@v3.3.0
+      - name: create env file
         run: |
-          ls -la
-          go run ./.github/scripts/update_article_list.go
+          touch .env
+          echo "MIDRA_LAB_NOTION_API=${MIDRA_LAB_NOTION_API}" >> .env
+          echo "NOTION_DATABASE_URL=${NOTION_DATABASE_URL}" >> .env
+      - name: Build
+        run: |
+          docker-compose up -d --build
+      - name: Run
+        run: |
+          docker-compose run midra-lab-zenn go run update_article_list.go
